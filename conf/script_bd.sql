@@ -4,7 +4,7 @@ CREATE TABLE pessoa_fisica(
 	pf_id INT auto_increment,
     pf_cpf varchar(45),
     pf_nome varchar(250),
-    pf_dt_nascimento varchar(45),
+    pf_dt_nascimento date,
     PRIMARY KEY (pf_id));
 
 CREATE TABLE contatos(
