@@ -6,7 +6,7 @@
     function exibir_como_select($chave, $dados){
         $str = "<option value=0>Escolha</option>";
         foreach($dados as $linha){
-            $str .= "<option value='".$linha[$chave[0]]."'>".$linha[$chave[1]]."</option>";
+            $str .= "<option value='{$linha[$chave[0]]}'>{$linha[$chave[1]]}</option>";
         }
         return $str;
     }
