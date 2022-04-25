@@ -21,7 +21,6 @@
             <label for="cc_pf_id">Pessoa:</label>
             <select name="cc_pf_id">
                 <?php
-                    require_once("ctrl_cc.php");
                     echo lista_pessoa(0);
                 ?>
             </select>
@@ -30,7 +29,6 @@
             <select name="cc_numero">
                 <?php
                     $pessoa = isset($_POST["cc_pf_id"]) ? $_POST["cc_pf_id"] : 0;
-                    require_once("ctrl_operacoes.php");
                     echo lista_conta_corrente($pessoa);
                 ?>
             </select>

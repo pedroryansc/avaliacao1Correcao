@@ -23,7 +23,7 @@
                 throw new Exception("Número de conta inválido: $numero");
         }
         public function setSaldo($saldo){
-            if($saldo <> "" && $saldo >= 0)
+            if($saldo >= 0)
                 $this->cc_saldo = $saldo;
             else
                 throw new Exception("Saldo inválido: $saldo");
@@ -65,6 +65,20 @@
                     return $stmt->fetchAll();
                 
                 return false;
+        }
+        public function editar($id){
+            require_once("../../conf/Conexao.php");
+            $query = "UPDATE conta_corrente
+                    SET cc_numero = :numero, cc_saldo = :saldo, cc_pf_id = :pf_id, cc_dt_ultima_alteracao = :dt_ultima_alteracao
+                    WHERE cc_numero = :id";
+            $conexao = Conexao::getInstance();
+            $stmt = $conexao->prepare($query);
+            $stmt->bindParam(":numero", $this->cc_numero);
+            $stmt->bindParam(":saldo", $this->cc_saldo);
+            $stmt->bindParam(":pf_id", $this->cc_pf_id);
+            $stmt->bindParam(":dt_ultima_alteracao", $this->cc_dt_ultima_alteracao);
+            $stmt->bindParam(":id", $id);
+            return $stmt->execute();
         }
 
         /* public function inserirContaCorrente(){
