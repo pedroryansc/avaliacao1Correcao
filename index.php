@@ -122,7 +122,7 @@
             <td><?php echo $linha["cc_pf_id"]; ?></td>
             <td><?php echo $linha["cc_dt_ultima_alteracao"]; ?></td>
             <td><a href="class/classCorrecao/cad_ccCorrecao.php?acao=editar&id=<?php echo $linha['cc_numero'];?>">Editar</a></td>
-            <td><a href="javascript:excluirRegistro('acao.php?acao=excluir&id=<?php echo $linha['cc_numero']; ?>')">Excluir</a><br></td>
+            <td><a href="javascript:excluirRegistro('class/classCorrecao/ctrl_cc.php?acao=excluir&id=<?php echo $linha['cc_numero']; ?>')">Excluir</a><br></td>
         </tr>
         <?php 
             }

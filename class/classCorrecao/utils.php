@@ -24,6 +24,10 @@
             echo "Erro: ".$e->getMessage();
         }
         $lista = $contaCorrente->buscar($id);
-        return exibir_como_select(array("cc_numero", "cc_numero"), $lista);
+        if($id != ""){
+            foreach($lista as $vetor)
+                return $vetor;
+        } else
+            return exibir_como_select(array("cc_numero", "cc_numero"), $lista);
     }
 ?>

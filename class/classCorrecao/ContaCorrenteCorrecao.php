@@ -56,15 +56,15 @@
             require_once("../../conf/Conexao.php");
             $query = "SELECT * FROM conta_corrente";
             $conexao = Conexao::getInstance();
-            if($id > 0){
-                $query .= " WHERE cc_pf_id = :id";
+            $stmt = $conexao->prepare($query);
+            if($id != ""){
+                $query .= " WHERE cc_numero = :id";
+                $stmt = $conexao->prepare($query);
                 $stmt->bindParam(":id", $id);
             }
-            $stmt = $conexao->prepare($query);
-                if($stmt->execute())
-                    return $stmt->fetchAll();
-                
-                return false;
+            if($stmt->execute())
+                return $stmt->fetchAll(); 
+            return false;
         }
         public function editar($id){
             require_once("../../conf/Conexao.php");
@@ -77,6 +77,14 @@
             $stmt->bindParam(":saldo", $this->cc_saldo);
             $stmt->bindParam(":pf_id", $this->cc_pf_id);
             $stmt->bindParam(":dt_ultima_alteracao", $this->cc_dt_ultima_alteracao);
+            $stmt->bindParam(":id", $id);
+            return $stmt->execute();
+        }
+        public function excluir($id){
+            require_once("../../conf/Conexao.php");
+            $query = "DELETE FROM conta_corrente WHERE cc_numero = :id";
+            $conexao = Conexao::getInstance();
+            $stmt = $conexao->prepare($query);
             $stmt->bindParam(":id", $id);
             return $stmt->execute();
         }
