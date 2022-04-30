@@ -118,9 +118,9 @@
         ?>
         <tr>
             <td><?php echo $linha["cc_numero"]; ?></td>
-            <td><?php echo $linha["cc_saldo"]; ?></td>
+            <td><?php echo number_format($linha["cc_saldo"], 2, ",", "."); ?></td>
             <td><?php echo $linha["cc_pf_id"]; ?></td>
-            <td><?php echo $linha["cc_dt_ultima_alteracao"]; ?></td>
+            <td><?php echo date("d/m/Y", strtotime($linha["cc_dt_ultima_alteracao"])); ?></td>
             <td><a href="class/classCorrecao/cad_ccCorrecao.php?acao=editar&id=<?php echo $linha['cc_numero'];?>">Editar</a></td>
             <td><a href="javascript:excluirRegistro('class/classCorrecao/ctrl_cc.php?acao=excluir&id=<?php echo $linha['cc_numero']; ?>')">Excluir</a><br></td>
         </tr>
