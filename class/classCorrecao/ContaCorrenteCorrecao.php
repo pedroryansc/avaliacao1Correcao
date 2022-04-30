@@ -89,20 +89,36 @@
             return $stmt->execute();
         }
 
-        public function saque($saldoInicial, $valor, $numero){
-            $saldoFinal = $saldoInicial[1] - $valor;
-            require_once("../../conf/Conexao.php");
-            $query = "UPDATE conta_corrente
-                    SET cc_saldo = :saldo
-                    WHERE cc_numero = :numero";
-            $conexao = Conexao::getInstance();
-            $stmt = $conexao->prepare($query);
-            $stmt->bindParam(":saldo", $saldoFinal);
-            $stmt->bindParam(":numero", $numero);
-            return $stmt->execute();
-        }
-        public function deposito(){
-
+        public function saqueOuDeposito($pessoaFisica, $operacao, $saldoInicial, $valor, $numero){
+            if($pessoaFisica == $saldoInicial[2]){
+                if($operacao == "saque"){
+                    if($saldoInicial[1] > 0){
+                        $saldoFinal = $saldoInicial[1] - $valor;
+                        if($saldoFinal < 0){
+                            $opr = 0;
+                            return $opr;
+                        }
+                    } else{
+                        $opr = 0;
+                        return $opr;
+                    }
+                } else if($operacao == "deposito")
+                    $saldoFinal = $saldoInicial[1] + $valor;
+                $ultAlt = date("Y-m-d");
+                require_once("../../conf/Conexao.php");
+                $query = "UPDATE conta_corrente
+                        SET cc_saldo = :saldo, cc_dt_ultima_alteracao = :dt_ultima_alteracao
+                        WHERE cc_numero = :numero";
+                $conexao = Conexao::getInstance();
+                $stmt = $conexao->prepare($query);
+                $stmt->bindParam(":saldo", $saldoFinal);
+                $stmt->bindParam(":dt_ultima_alteracao", $ultAlt);
+                $stmt->bindParam(":numero", $numero);
+                return $stmt->execute();
+            } else{
+                $opr = -1;
+                return $opr;
+            }
         }
 
         /* public function inserirContaCorrente(){

@@ -3,6 +3,9 @@
 
     require_once("utils.php");
 
+    $opr = isset($_GET["opr"]) ? $_GET["opr"] : 0;
+    $num = isset($_GET["num"]) ? $_GET["num"] : "";
+
     $title = "Operação de Saque/Depósito";
 ?>
 <html lang="pt-br">
@@ -39,5 +42,17 @@
             <button type="submit" name="acao" value="salvar">Salvar</button>
         </fieldset>
     </form>
+    <br>
+    <?php
+        if($opr == 1 && $num != ""){
+            $vetor = lista_conta_corrente($num);
+            echo "Operação efetuada com sucesso. Saldo atual da conta {$vetor[0]}: <br>
+            <br>
+            R$".$vetor[1];
+        } else if($opr == 0 && $num != "")
+            echo "Saldo insuficiente para realizar a operação.";
+        else if($opr == -1)
+            echo "Pessoa física e conta corrente incorrespondentes. Por favor, selecione as opções corretas."
+    ?>
 </body>
 </html>

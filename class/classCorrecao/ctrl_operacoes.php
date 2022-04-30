@@ -9,13 +9,10 @@
         $operacao = isset($_POST["operacao"]) ? $_POST["operacao"] : "";
         $valor = isset($_POST["valor"]) ? $_POST["valor"] : 0;
         $contaCorrente = new ContaCorrente(1, 1, 1, 1);
-        if($operacao == "saque"){
-            $lista = $contaCorrente->buscar($cc_numero);
-            $vetor = converteParaArray($lista);
-            $contaCorrente->saque($vetor, $valor, $cc_numero);
-            header("location:../../index.php");
-        } else if($operacao == "deposito")
-            $contaCorrente->deposito();
+        $lista = $contaCorrente->buscar($cc_numero);
+        $vetor = converteParaArray($lista);
+        $opr = $contaCorrente->saqueOuDeposito($cc_pf_id, $operacao, $vetor, $valor, $cc_numero);
+        header("location:saque_deposito.php?opr=$opr&num=$cc_numero");
     }
 
     function converteParaArray($lista){
