@@ -28,8 +28,7 @@
             <label for="cc_numero">Conta Corrente:</label>
             <select name="cc_numero">
                 <?php
-                    $pessoa = isset($_POST["cc_pf_id"]) ? $_POST["cc_pf_id"] : 0;
-                    echo lista_conta_corrente($pessoa);
+                    echo lista_conta_corrente("");
                 ?>
             </select>
             <br>

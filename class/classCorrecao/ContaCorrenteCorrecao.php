@@ -89,6 +89,22 @@
             return $stmt->execute();
         }
 
+        public function saque($saldoInicial, $valor, $numero){
+            $saldoFinal = $saldoInicial[1] - $valor;
+            require_once("../../conf/Conexao.php");
+            $query = "UPDATE conta_corrente
+                    SET cc_saldo = :saldo
+                    WHERE cc_numero = :numero";
+            $conexao = Conexao::getInstance();
+            $stmt = $conexao->prepare($query);
+            $stmt->bindParam(":saldo", $saldoFinal);
+            $stmt->bindParam(":numero", $numero);
+            return $stmt->execute();
+        }
+        public function deposito(){
+
+        }
+
         /* public function inserirContaCorrente(){
             $pdo = Conexao::getInstance();
             $stmt = $pdo->prepare("INSERT INTO conta_corrente (cc_numero, cc_saldo, cc_pf_id, cc_dt_ultima_alteracao) 
